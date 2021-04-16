@@ -230,6 +230,17 @@ class TestAtom(unittest.TestCase):
             else:
                 self.assertFalse(atom.is_nos())
 
+    def test_is_halogen(self):
+        """
+        Test the Atom.is_halogen() method.
+        """
+        for element in element_list:
+            atom = Atom(element=element, radical_electrons=1, charge=0, label='*1', lone_pairs=3)
+            if element.symbol in ['F', 'Cl', 'Br', 'I']:
+                self.assertTrue(atom.is_halogen())
+            else:
+                self.assertFalse(atom.is_halogen())
+
     def test_is_surface_site(self):
         """
         Test the Atom.is_surface_site() method.
@@ -2431,6 +2442,13 @@ multiplicity 2
         """Test aryl radical perception for phenyl radical."""
         mol = Molecule(smiles='[c]1ccccc1')
         self.assertTrue(mol.is_aryl_radical())
+
+    def test_has_halogen(self):
+        """Test Molecule.has_halogen() method."""
+        mol1 = Molecule(smiles='CCCCl')
+        mol2 = Molecule(smiles='CCCCC')
+        self.assertTrue(mol1.has_halogen())
+        self.assertFalse(mol2.has_halogen())
 
     def test_aryl_radical_false(self):
         """Test aryl radical perception for benzyl radical."""
